@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="800" y1="0" x2="800" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#59634B"/>
+      <stop offset=".58" stop-color="#424D39"/>
+      <stop offset="1" stop-color="#293329"/>
+    </linearGradient>
+    <linearGradient id="vehicle" x1="880" y1="590" x2="1390" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#667052"/>
+      <stop offset="1" stop-color="#3C4737"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h1600v1000H0z"/>
+  <path fill="#788064" fill-opacity=".32" d="m0 485 222-153 163 100 202-192 204 193 151-110 229 182 178-126 251 152v469H0z"/>
+  <path fill="#4F5A42" fill-opacity=".7" d="m0 594 208-96 194 73 164-134 178 125 204-96 184 102 200-94 268 117v409H0z"/>
+  <path fill="#313C30" fill-opacity=".78" d="M0 700c210-55 365-28 558 9s356 41 517-10 359-53 525 5v296H0z"/>
+
+  <g stroke="#B3B99B" stroke-opacity=".16" stroke-width="3">
+    <path d="M0 786c260-69 412 50 666-9s438-12 632 4 207-4 302-20"/>
+    <path d="M0 846c219-35 405 26 601 10s407-34 614 6 269 24 385 0"/>
+  </g>
+
+  <g fill="#222C24" fill-opacity=".78" stroke="#AEB596" stroke-opacity=".28" stroke-width="4" stroke-linejoin="round">
+    <path d="M987 606h280l76 76h103v148H910V669l77-63Z" fill="url(#vehicle)"/>
+    <path d="M1017 629h128v91H963v-40l54-51Z" fill="#343F32"/>
+    <path d="M1164 629h89l57 67h-146v-67Z" fill="#343F32"/>
+    <path d="M1290 699h136v79h-136z" fill="#4C5841"/>
+    <path d="M949 715h476v41H949z" fill="#788064" fill-opacity=".32"/>
+    <path d="M1271 608h13v-44h13v44m-34-44h55m-28 0v-25" stroke="#B3B99B" stroke-opacity=".4"/>
+    <path d="M1281 538c-14-10-14-24 0-34m23 34c14-10 14-24 0-34" stroke="#B3B99B" stroke-opacity=".38"/>
+    <path d="M921 680h-48v30h48" fill="#3D4938"/>
+    <path d="M943 832c0-36 28-65 64-65s65 29 65 65-29 65-65 65-64-29-64-65Z" fill="#202923"/>
+    <path d="M968 832c0-22 17-40 39-40s40 18 40 40-18 40-40 40-39-18-39-40Z" fill="#778064" fill-opacity=".65"/>
+    <path d="M1231 832c0-36 29-65 65-65s65 29 65 65-29 65-65 65-65-29-65-65Z" fill="#202923"/>
+    <path d="M1256 832c0-22 18-40 40-40s40 18 40 40-18 40-40 40-40-18-40-40Z" fill="#778064" fill-opacity=".65"/>
+  </g>
+
+  <g fill="#75805E" fill-opacity=".58" stroke="#AEB596" stroke-opacity=".25" stroke-width="3">
+    <path d="M1394 726h113v101h-113z"/>
+    <path d="M1410 681h80v45h-80z"/>
+    <path d="M1328 758h55v69h-55z"/>
+    <path d="M1360 714h30v44h-30z"/>
+  </g>
+  <g stroke="#D0D4BC" stroke-opacity=".22" stroke-width="3">
+    <path d="M1410 681v45m40-45v45m40-45v45m-96 50h113m-113 27h113"/>
+    <path d="M1338 758v69m18-69v69m-28-40h55"/>
+  </g>
+
+  <g fill="#242E26" fill-opacity=".7" stroke="#AEB596" stroke-opacity=".26" stroke-width="3" stroke-linejoin="round">
+    <path d="M191 616h73v144h-73z"/>
+    <path d="M205 570h45v46h-45z"/>
+    <path d="M209 538h37v32h-37z"/>
+    <path d="M183 760h88v19h-88z"/>
+    <path d="M219 538v-43m18 43v-43m-30 0h42" fill="none"/>
+    <path d="M153 779h151v25H153z"/>
+    <path d="M171 804h113v34H171z"/>
+  </g>
+  <g stroke="#D0D4BC" stroke-opacity=".2" stroke-width="3">
+    <path d="M205 641h45m-45 30h45m-45 30h45m-45 30h45"/>
+    <path d="M171 814h113m-94-10v34m37-34v34m37-34v34"/>
+  </g>
+
+  <g fill="#D0D4BC" fill-opacity=".34" font-family="Arial,sans-serif" font-size="19" letter-spacing="5">
+    <text x="92" y="116">FORWARD LOGISTICS ZONE</text>
+    <text x="92" y="148" font-size="12" letter-spacing="3">FIELD OPERATIONS · SUPPLY CORRIDOR</text>
+  </g>
+  <g stroke="#D0D4BC" stroke-opacity=".28" stroke-width="2">
+    <path d="M95 174h330"/>
+    <path d="M95 182h125"/>
+  </g>
+</svg>

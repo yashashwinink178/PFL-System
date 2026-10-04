@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Predictive Forward Logistics System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #0b1220;
+            color: #ffffff;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: #111827;
+            padding: 25px 15px;
+            border-right: 1px solid #263244;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4ade80;
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            list-style: none;
+        }
+
+        .menu a {
+            display: block;
+            padding: 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #cbd5e1;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #1f2937;
+            color: #4ade80;
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: 240px;
+            padding: 25px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .topbar h1 {
+            font-size: 28px;
+        }
+
+        .system-status {
+            background: #13251c;
+            color: #4ade80;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* CARDS */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: #111827;
+            border: 1px solid #263244;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .card-title {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .green {
+            color: #4ade80;
+        }
+
+        .yellow {
+            color: #facc15;
+        }
+
+        .red {
+            color: #f87171;
+        }
+
+        /* SECTIONS */
+        .section-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .panel {
+            background: #111827;
+            border: 1px solid #263244;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .panel h2 {
+            margin-bottom: 18px;
+            font-size: 19px;
+        }
+
+        /* BASES */
+        .bases {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .base {
+            background: #172033;
+            padding: 18px;
+            border-radius: 10px;
+            border-left: 4px solid #4ade80;
+        }
+
+        .base h3 {
+            margin-bottom: 10px;
+        }
+
+        .base p {
+            color: #94a3b8;
+            font-size: 13px;
+            margin: 6px 0;
+        }
+
+        /* RISK */
+        .risk-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #172033;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .risk-light {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+        }
+
+        .risk-green {
+            background: #22c55e;
+            box-shadow: 0 0 12px #22c55e;
+        }
+
+        .risk-yellow {
+            background: #eab308;
+            box-shadow: 0 0 12px #eab308;
+        }
+
+        .risk-red {
+            background: #ef4444;
+            box-shadow: 0 0 12px #ef4444;
+        }
+
+        .risk-text h3 {
+            font-size: 15px;
+        }
+
+        .risk-text p {
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #263244;
+        }
+
+        th {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .status-green {
+            background: #12351f;
+            color: #4ade80;
+        }
+
+        .status-yellow {
+            background: #3a3210;
+            color: #facc15;
+        }
+
+        .status-red {
+            background: #3b1515;
+            color: #f87171;
+        }
+
+        /* PREDICTION */
+        .prediction {
+            background: #172033;
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .prediction h3 {
+            margin-bottom: 10px;
+        }
+
+        .prediction p {
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .prediction strong {
+            color: #ffffff;
+        }
+
+        .recommendation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #13251c;
+            color: #4ade80;
+            border-radius: 8px;
+        }
+
+        /* BUTTON */
+        button {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #15803d;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+            }
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bases {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 600px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Muted military olive palette */
+        body {
+            background-color: #283025;
+            background-image: linear-gradient(rgba(34, 42, 32, 0.46), rgba(34, 42, 32, 0.58)), url("military-background.svg");
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .sidebar,
+        .card,
+        .panel,
+        .base,
+        .risk-box,
+        .activity-item {
+            background-color: rgba(52, 60, 48, 0.88);
+            border-color: #505a45;
+        }
+
+        .sidebar {
+            background-color: #20271f;
+            border-color: #414b3a;
+        }
+
+        .logo,
+        .menu a:hover,
+        .menu a.active,
+        .green {
+            color: #bdca97;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background-color: #414b37;
+        }
+
+        .map-panel {
+            margin-bottom: 25px;
+        }
+
+        .map-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .map-heading h2 {
+            margin-bottom: 5px;
+        }
+
+        .map-heading p {
+            color: #aeb99b;
+            font-size: 13px;
+        }
+
+        .map-frame {
+            overflow: hidden;
+            border: 1px solid #414b31;
+            border-radius: 10px;
+            background: #1c2419;
+        }
+
+        .operations-map {
+            display: block;
+            width: 100%;
+            min-height: 240px;
+        }
+
+        .map-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 22px;
+            padding: 13px 4px 0;
+            color: #cbd5b5;
+            font-size: 13px;
+        }
+
+        .map-legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .map-key {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #c4d58b;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        .map-key.medium {
+            background: #eab308;
+        }
+
+        .map-key.high {
+            background: #ef4444;
+        }
+
+        .map-route-key {
+            width: 22px;
+            border-top: 2px dashed #d3c58d;
+        }
+
+        .map-pin {
+            cursor: pointer;
+        }
+
+        .map-pin:focus-visible {
+            outline: 3px solid #f4f0c8;
+            outline-offset: 5px;
+        }
+
+        @media(max-width: 600px) {
+            .map-heading {
+                flex-direction: column;
+            }
+
+            .operations-map {
+                min-height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        ⚡ PFL SYSTEM
+    </div>
+
+    <ul class="menu">
+
+        <li><a class="active" href="index.html" aria-current="page">📊 Dashboard</a></li>
+
+        <li><a href="logistics.html">📦 Logistics</a></li>
+
+        <li><a href="forward-bases.html">🏕 Forward Bases</a></li>
+
+        <li><a href="convoys.html">🚚 Convoys</a></li>
+
+        <li><a href="ai-prediction.html">🤖 AI Prediction</a></li>
+
+        <li><a href="Risk.management.html">⚠ Risk Management</a></li>
+
+        <li><a href="Alerts.html">🔔 Alerts</a></li>
+
+    </ul>
+
+</div>
+
+
+<!-- MAIN CONTENT -->
+
+<div class="main">
+
+    <!-- HEADER -->
+
+    <div class="topbar">
+
+        <div>
+            <h1>Predictive Forward Logistics System</h1>
+
+            <p style="color:#94a3b8; margin-top:6px;">
+                Logistics Command & Predictive Supply Monitoring
+            </p>
+        </div>
+
+        <div class="system-status">
+            ● SYSTEM OPERATIONAL
+        </div>
+
+    </div>
+
+
+    <!-- TOP CARDS -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="card-title">
+                ACTIVE FORWARD BASES
+            </div>
+
+            <div class="card-value">
+                3
+            </div>
+
+            <div class="green">
+                Operational
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                ACTIVE CONVOYS
+            </div>
+
+            <div class="card-value">
+                12
+            </div>
+
+            <div class="green">
+                On Schedule
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                LOW STOCK ITEMS
+            </div>
+
+            <div class="card-value yellow">
+                07
+            </div>
+
+            <div class="yellow">
+                Attention Required
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                CRITICAL RISKS
+            </div>
+
+            <div class="card-value red">
+                02
+            </div>
+
+            <div class="red">
+                Immediate Action
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TACTICAL LOGISTICS MAP -->
+
+    <section class="panel map-panel" aria-labelledby="operations-map-title">
+        <div class="map-heading">
+            <div>
+                <h2 id="operations-map-title">Operational Logistics Map</h2>
+                <p>Schematic deployment overview · Select a base or convoy route for details</p>
+            </div>
+            <span class="system-status">● LIVE OVERVIEW</span>
+        </div>
+
+        <div class="map-frame">
+            <svg class="operations-map" viewBox="0 0 900 340" role="group" aria-labelledby="map-svg-title map-svg-description">
+                <title id="map-svg-title">Forward bases and convoy supply routes</title>
+                <desc id="map-svg-description">A schematic field map showing command headquarters connected by convoy routes to Base Alpha, Base Bravo, and high-risk Base Charlie.</desc>
+                <defs>
+                    <pattern id="map-grid" width="36" height="36" patternUnits="userSpaceOnUse">
+                        <path d="M 36 0 L 0 0 0 36" fill="none" stroke="#71805a" stroke-opacity=".17" stroke-width="1"/>
+                    </pattern>
+                    <marker id="route-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#d3c58d"/>
+                    </marker>
+                    <filter id="pin-glow" x="-100%" y="-100%" width="300%" height="300%">
+                        <feGaussianBlur stdDeviation="4" result="blur"/>
+                        <feMerge>
+                            <feMergeNode in="blur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <rect width="900" height="340" fill="#1b2418"/>
+                <rect width="900" height="340" fill="url(#map-grid)"/>
+
+                <g fill="none" stroke="#62734a" stroke-opacity=".32" stroke-width="2">
+                    <path d="M-30 74 C95 18 150 128 268 78 S450 12 546 62 730 129 930 40"/>
+                    <path d="M-30 92 C95 36 150 146 268 96 S450 30 546 80 730 147 930 58"/>
+                    <path d="M-30 255 C110 195 202 302 330 249 S542 181 654 240 790 306 930 235"/>
+                    <path d="M-30 274 C110 214 202 321 330 268 S542 200 654 259 790 325 930 254"/>
+                </g>
+
+                <g fill="none" stroke="#89936b" stroke-opacity=".26" stroke-width="9" stroke-linecap="round">
+                    <path d="M92 294 C198 268 225 209 318 174 S478 161 583 218 725 271 812 191"/>
+                    <path d="M314 174 C341 119 384 84 466 70 S609 86 716 116"/>
+                </g>
+                <g fill="none" stroke="#d3c58d" stroke-width="3" stroke-dasharray="9 8" marker-end="url(#route-arrow)">
+                    <path d="M112 288 C211 258 227 206 318 174 S480 160 583 218 710 260 802 190"/>
+                    <path d="M318 174 C350 119 389 87 466 70 S606 86 716 116"/>
+                </g>
+
+                <g fill="#c8d0ae" font-family="Arial, sans-serif" font-size="12" letter-spacing="2" opacity=".65">
+                    <text x="40" y="34">NORTH SECTOR</text>
+                    <text x="706" y="314">SUPPLY CORRIDOR 04</text>
+                </g>
+                <g transform="translate(844 52)" fill="none" stroke="#c8d0ae" stroke-width="2">
+                    <path d="M0 24 L10 0 L20 24 L10 18 Z" fill="#c8d0ae"/>
+                    <text x="6" y="-8" fill="#c8d0ae" stroke="none" font-size="11" font-family="Arial, sans-serif">N</text>
+                </g>
+
+                <a href="convoys.html" aria-label="View convoy operations">
+                    <circle cx="112" cy="288" r="15" fill="#34402a" stroke="#c4d58b" stroke-width="2"/>
+                    <path d="M104 287h11v7h-11z M115 289h5l3 3v2h-8z" fill="#c4d58b"/>
+                    <circle cx="108" cy="296" r="2" fill="#1b2418"/>
+                    <circle cx="119" cy="296" r="2" fill="#1b2418"/>
+                    <text x="54" y="322" fill="#e4e8d5" font-family="Arial, sans-serif" font-size="13">COMMAND HQ</text>
+                </a>
+
+                <a class="map-pin" href="forward-bases.html" aria-label="View Base Alpha, low risk">
+                    <circle cx="466" cy="70" r="19" fill="#c4d58b" fill-opacity=".16" filter="url(#pin-glow)"/>
+                    <circle cx="466" cy="70" r="9" fill="#c4d58b" stroke="#f2f5df" stroke-width="2"/>
+                    <text x="487" y="67" fill="#f0f2e5" font-family="Arial, sans-serif" font-size="14" font-weight="bold">BASE ALPHA</text>
+                    <text x="487" y="85" fill="#c4d58b" font-family="Arial, sans-serif" font-size="12">SECTOR A · LOW</text>
+                </a>
+
+                <a class="map-pin" href="forward-bases.html" aria-label="View Base Bravo, medium risk">
+                    <circle cx="583" cy="218" r="19" fill="#eab308" fill-opacity=".16" filter="url(#pin-glow)"/>
+                    <circle cx="583" cy="218" r="9" fill="#eab308" stroke="#fff1b0" stroke-width="2"/>
+                    <text x="604" y="215" fill="#f0f2e5" font-family="Arial, sans-serif" font-size="14" font-weight="bold">BASE BRAVO</text>
+                    <text x="604" y="233" fill="#f2cf53" font-family="Arial, sans-serif" font-size="12">SECTOR B · MEDIUM</text>
+                </a>
+
+                <a class="map-pin" href="forward-bases.html" aria-label="View Base Charlie, high risk">
+                    <circle cx="716" cy="116" r="19" fill="#ef4444" fill-opacity=".2" filter="url(#pin-glow)"/>
+                    <circle cx="716" cy="116" r="9" fill="#ef4444" stroke="#ffc0b9" stroke-width="2"/>
+                    <text x="737" y="113" fill="#f0f2e5" font-family="Arial, sans-serif" font-size="14" font-weight="bold">BASE CHARLIE</text>
+                    <text x="737" y="131" fill="#ff8b80" font-family="Arial, sans-serif" font-size="12">SECTOR C · HIGH</text>
+                </a>
+
+                <a href="convoys.html" aria-label="View convoy on the supply corridor">
+                    <circle cx="386" cy="153" r="7" fill="#d3c58d" stroke="#fff5d2" stroke-width="2"/>
+                    <circle cx="653" cy="245" r="7" fill="#d3c58d" stroke="#fff5d2" stroke-width="2"/>
+                </a>
+            </svg>
+        </div>
+
+        <div class="map-legend" aria-label="Map legend">
+            <span class="map-legend-item"><span class="map-key"></span>Low risk base</span>
+            <span class="map-legend-item"><span class="map-key medium"></span>Medium risk base</span>
+            <span class="map-legend-item"><span class="map-key high"></span>High risk base</span>
+            <span class="map-legend-item"><span class="map-route-key"></span>Active convoy route</span>
+        </div>
+    </section>
+
+
+    <!-- BASES + RISK -->
+
+    <div class="section-grid">
+
+
+        <!-- LOGISTICS BASES -->
+
+        <div class="panel">
+
+            <h2>Forward Logistics Bases</h2>
+
+            <div class="bases">
+
+                <div class="base">
+
+                    <h3>Base Alpha</h3>
+
+                    <p>Location: Sector A</p>
+
+                    <p>Fuel: <span class="green">82%</span></p>
+
+                    <p>Food: <span class="green">76%</span></p>
+
+                    <p>Medical: <span class="yellow">61%</span></p>
+
+                    <p>Risk: <span class="green">LOW</span></p>
+
+                </div>
+
+
+                <div class="base">
+
+                    <h3>Base Bravo</h3>
+
+                    <p>Location: Sector B</p>
+
+                    <p>Fuel: <span class="yellow">54%</span></p>
+
+                    <p>Food: <span class="green">71%</span></p>
+
+                    <p>Medical: <span class="yellow">48%</span></p>
+
+                    <p>Risk: <span class="yellow">MEDIUM</span></p>
+
+                </div>
+
+
+                <div class="base">
+
+                    <h3>Base Charlie</h3>
+
+                    <p>Location: Sector C</p>
+
+                    <p>Fuel: <span class="red">28%</span></p>
+
+                    <p>Food: <span class="yellow">45%</span></p>
+
+                    <p>Medical: <span class="red">31%</span></p>
+
+                    <p>Risk: <span class="red">HIGH</span></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RISK MANAGEMENT -->
+
+        <div class="panel">
+
+            <h2>Risk Management</h2>
+
+
+            <div class="risk-box">
+
+                <div class="risk-light risk-green"></div>
+
+                <div class="risk-text">
+
+                    <h3>GREEN — LOW RISK</h3>
+
+                    <p>Supply levels stable</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="risk-box">
+
+                <div class="risk-light risk-yellow"></div>
+
+                <div class="risk-text">
+
+                    <h3>YELLOW — MEDIUM RISK</h3>
+
+                    <p>Monitor and prepare resupply</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="risk-box">
+
+                <div class="risk-light risk-red"></div>
+
+                <div class="risk-text">
+
+                    <h3>RED — HIGH RISK</h3>
+
+                    <p>Immediate resupply required</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- INVENTORY -->
+
+    <div class="panel">
+
+        <h2>Logistics Inventory Status</h2>
+
+        <table>
+
+            <tr>
+
+                <th>Resource</th>
+
+                <th>Base</th>
+
+                <th>Available</th>
+
+                <th>Daily Consumption</th>
+
+                <th>Predicted Status</th>
+
+            </tr>
+
+
+            <tr>
+
+                <td>Fuel</td>
+
+                <td>Base Alpha</td>
+
+                <td>8,200 L</td>
+
+                <td>950 L/day</td>
+
+                <td>
+                    <span class="status status-green">
+                        Stable
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>Fuel</td>
+
+                <td>Base Charlie</td>
+
+                <td>2,800 L</td>
+
+                <td>1,100 L/day</td>
+
+                <td>
+                    <span class="status status-red">
+                        Critical
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>Food</td>
+
+                <td>Base Bravo</td>
+
+                <td>4,500 Units</td>
+
+                <td>600 Units/day</td>
+
+                <td>
+                    <span class="status status-yellow">
+                        Monitor
+                    </span>
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>Medical Supplies</td>
+
+                <td>Base Charlie</td>
+
+                <td>850 Units</td>
+
+                <td>250 Units/day</td>
+
+                <td>
+                    <span class="status status-red">
+                        Critical
+                    </span>
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- AI PREDICTION -->
+
+    <div class="section-grid">
+
+        <div class="panel">
+
+            <h2>🤖 Predictive Logistics Analysis</h2>
+
+            <div class="prediction">
+
+                <h3>Base Charlie — Fuel Supply</h3>
+
+                <p>
+                    Current Stock:
+                    <strong>2,800 Litres</strong>
+                </p>
+
+                <p>
+                    Average Consumption:
+                    <strong>1,100 Litres/day</strong>
+                </p>
+
+                <p>
+                    Estimated Remaining Supply:
+                    <strong>2.5 Days</strong>
+                </p>
+
+                <p>
+                    Predicted Risk:
+                    <strong class="red">HIGH</strong>
+                </p>
+
+                <div class="recommendation">
+
+                    ⚠ Recommended Action:
+
+                    Dispatch approximately
+                    <strong>5,000 Litres</strong>
+                    of fuel to Base Charlie.
+
+                </div>
+
+                <button onclick="runPrediction()">
+                    Run Prediction
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ALERTS -->
+
+        <div class="panel">
+
+            <h2>🔔 Recent Alerts</h2>
+
+            <div class="risk-box">
+
+                <div class="risk-light risk-red"></div>
+
+                <div class="risk-text">
+
+                    <h3>Fuel Shortage</h3>
+
+                    <p>Base Charlie</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="risk-box">
+
+                <div class="risk-light risk-yellow"></div>
+
+                <div class="risk-text">
+
+                    <h3>Medical Stock Low</h3>
+
+                    <p>Base Bravo</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="risk-box">
+
+                <div class="risk-light risk-green"></div>
+
+                <div class="risk-text">
+
+                    <h3>Convoy Arrived</h3>
+
+                    <p>Base Alpha</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function runPrediction() {
+
+    alert(
+        "AI Prediction Complete!\n\n" +
+        "Base Charlie is at HIGH RISK.\n\n" +
+        "Fuel shortage predicted within 2.5 days.\n\n" +
+        "Recommended resupply: 5,000 Litres."
+    );
+
+}
+
+</script>
+
+</body>
+</html>
